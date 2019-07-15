@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019 Aritra Nath. All rights reserved.
+  -->
+
+<resources>
+    <color name="colorPrimary">#ffd600</color>
+    <color name="colorPrimaryDark">#c7a500</color>
+    <color name="colorAccent">#D81B60</color>
+</resources>
