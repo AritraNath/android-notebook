@@ -37,14 +37,14 @@ public class SecondaryActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
-        String name = sharedPreferences.getString("NAME", "*** Nothing has been saved yet ***");
+        String note = sharedPreferences.getString("NOTE", "*** Nothing has been saved yet ***");
         String date = sharedPreferences.getString("DATE", "NA");
         String time = sharedPreferences.getString("TIME", "NA");
 
         TextView noteText = findViewById(R.id.tvTextFromMainActivity);
         TextView dateFooter = findViewById(R.id.dateFooter);
         dateFooter.setText(getString(R.string.saved_on_actual_date, date, time));
-        noteText.setText(name);
+        noteText.setText(note);
     }
 
     @Override
