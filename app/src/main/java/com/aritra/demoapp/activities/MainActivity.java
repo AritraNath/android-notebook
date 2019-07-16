@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat date, time;
     ConstraintLayout mainLayout;
     SnackBarGenerator snackBarGenerator;
-    EditText etName;
+    EditText etNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         sharedPreferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
-        String name = sharedPreferences.getString("NAME", "");
+        String note = sharedPreferences.getString("NOTE", "");
 
         mainLayout = findViewById(R.id.mainLayout);
-        etName = findViewById(R.id.etName);
-        etName.setText(name);
+        etNote = findViewById(R.id.etNote);
+        etNote.setText(note);
 
         snackBarGenerator = new SnackBarGenerator(mainLayout);
     }
@@ -65,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveAndChangeActivity(View view) {
-        String name = etName.getText().toString();
+        String note = etNote.getText().toString();
         date = new SimpleDateFormat("EEEE, dd MMMM YYYY", Locale.UK);
         time = new SimpleDateFormat("hh:mm a", Locale.UK);
-        if (name.isEmpty())
-            etName.setError("Cannot be empty");
+        if (note.isEmpty())
+            etNote.setError("Cannot be empty");
         else {
             SharedPreferences.Editor shared_prefs = sharedPreferences.edit();
-            shared_prefs.putString("NAME", name);
+            shared_prefs.putString("NOTE", note);
             shared_prefs.putString("DATE", date.format(new Date()));
             shared_prefs.putString("TIME", time.format(new Date()));
             shared_prefs.apply();
