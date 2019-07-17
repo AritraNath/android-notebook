@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2019 Aritra Nath. All rights reserved.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aritra.demoapp">
@@ -15,10 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activities.SecondaryActivity"
-            android:parentActivityName=".activities.MainActivity">
-        </activity>
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.ListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.SecondaryActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

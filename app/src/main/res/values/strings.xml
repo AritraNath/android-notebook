@@ -4,16 +4,21 @@
 
 <resources>
     <string name="app_name">Rik\'s Note Book</string>
-    <string name="editText_hint">Note content</string>
-    <string name="save_amp_move_to_secondary_activity">Save &amp; show full note</string>
+    <string name="note_content">Content*</string>
+    <string name="note_subject">Subject*</string>
+    <string name="save_note">Save note</string>
     <string name="move_to_secondary_activity">Show full saved note</string>
     <string name="generate_toast">What time is it now?</string>
-    <string name="this_is_the_secondary_activity">This is the notes activity</string>
+    <string name="this_is_the_secondary_activity">This is the note activity</string>
     <string name="search">Search</string>
     <string name="item_1">Item 1</string>
     <string name="item_2">Item 2</string>
     <string name="item_3">Item 3</string>
     <string name="exit_app">Exit app</string>
     <string name="saved_on_dummy_text">This note was saved on Friday, 12 July 2019 at 09:17:26 hrs.</string>
-    <string name="saved_on_actual_date">This note was saved on %s at %s</string>
+    <string name="saved_on_subtitle">Saved on %s at %s</string>
+    <string name="date_footer">This note was saved on %s at %s</string>
+    <string name="date_added">Date added:</string>
+    <string name="content">Content:</string>
+    <string name="subject">Subject:</string>
 </resources>

@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,12 +25,14 @@
 
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:onClick="showSnackBar"
-        android:src="@drawable/ic_outline_save_24px" />
+        android:layout_margin="20dp"
+        android:text="@string/save_note"
+        android:onClick="saveNote"
+        android:textAllCaps="false"
+        app:icon="@drawable/ic_outline_save_24px" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

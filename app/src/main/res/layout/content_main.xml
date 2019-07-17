@@ -13,77 +13,88 @@
     tools:showIn="@layout/activity_main">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etNameLayout"
+        android:id="@+id/etSubjectLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/note_subject"
+        app:counterEnabled="true"
+        app:counterMaxLength="25"
+        app:endIconMode="clear_text"
+        app:helperText="*Required"
+        app:helperTextEnabled="true"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="25" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etNoteLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
+        android:hint="@string/note_content"
         app:counterEnabled="true"
         app:counterMaxLength="750"
-        app:helperText="* Required"
+        app:helperText="*Required"
         app:helperTextEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintEnd_toEndOf="@id/etSubjectLayout"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/etSubjectLayout">
 
-        <EditText
-            android:id="@+id/etName"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/editText_hint"
             android:inputType="textMultiLine|textCapSentences"
-            android:lines="10"
+            android:lines="8"
             android:maxLines="20"
             android:minLines="3"
             android:scrollbars="vertical"
             tools:ignore="Autofill" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <Button
-        android:id="@+id/btnSaveAndChange"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnShowNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etNameLayout"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="372dp"
-        android:layout_marginEnd="43dp"
-        android:onClick="saveAndChangeActivity"
-        android:text="@string/save_amp_move_to_secondary_activity"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="124dp"
+        android:onClick="showFullNote"
+        android:text="@string/move_to_secondary_activity"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnChange"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnShowTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSaveAndChange"
-        android:layout_marginStart="68dp"
-        android:layout_marginEnd="68dp"
-        android:onClick="changeActivity"
-        android:text="@string/move_to_secondary_activity"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSaveAndChange" />
-
-    <Button
-        android:id="@+id/btnShowToast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnChange"
+        android:layout_below="@+id/btnShowNote"
         android:layout_marginStart="141dp"
         android:layout_marginEnd="142dp"
-        android:onClick="genToast"
+        android:onClick="showDateAndTime"
         android:text="@string/generate_toast"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChange" />
+        app:layout_constraintTop_toBottomOf="@+id/btnShowNote" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

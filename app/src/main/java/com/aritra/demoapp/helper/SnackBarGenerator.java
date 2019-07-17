@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Aritra Nath. All rights reserved.
  */
 
-package com.aritra.demoapp;
+package com.aritra.demoapp.helper;
 
 import android.view.View;
 

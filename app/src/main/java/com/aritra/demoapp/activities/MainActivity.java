@@ -7,6 +7,8 @@ package com.aritra.demoapp.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +21,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.aritra.demoapp.R;
-import com.aritra.demoapp.SnackBarGenerator;
+import com.aritra.demoapp.helper.SnackBarGenerator;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -29,10 +33,12 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
-    SimpleDateFormat date, time;
+    DateFormat date, time;
+    Date today;
     ConstraintLayout mainLayout;
     SnackBarGenerator snackBarGenerator;
-    EditText etName;
+    EditText etSubject, etNote;
+    TextInputLayout subLayout, noteLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +49,48 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         sharedPreferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
-        String name = sharedPreferences.getString("NAME", "");
+        String note = sharedPreferences.getString("NOTE", "");
+        String subject = sharedPreferences.getString("SUBJECT", "");
 
         mainLayout = findViewById(R.id.mainLayout);
-        etName = findViewById(R.id.etName);
-        etName.setText(name);
+        noteLayout = findViewById(R.id.etNoteLayout);
+        etNote = findViewById(R.id.etNote);
+        etNote.setText(note);
+        subLayout = findViewById(R.id.etSubjectLayout);
+        etSubject = findViewById(R.id.etSubject);
+        etSubject.setText(subject);
+        etSubject.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (subLayout.getError() != null) {
+                    subLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        etNote.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (noteLayout.getError()!= null) {
+                    noteLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         snackBarGenerator = new SnackBarGenerator(mainLayout);
     }
 
@@ -64,38 +106,39 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveAndChangeActivity(View view) {
-        String name = etName.getText().toString();
-        date = new SimpleDateFormat("EEEE, dd MMMM YYYY", Locale.UK);
-        time = new SimpleDateFormat("hh:mm a", Locale.UK);
-        if (name.isEmpty())
-            etName.setError("Cannot be empty");
+    public void saveNote(View view) {
+        String note = etNote.getText().toString();
+        String subject = etSubject.getText().toString();
+        date = DateFormat.getDateInstance(DateFormat.SHORT);
+        time = DateFormat.getTimeInstance(DateFormat.SHORT);
+        today = new Date();
+        if (note.isEmpty()) {
+            noteLayout.setError("Cannot be empty");
+        }
+        if (subject.isEmpty()) {
+            subLayout.setError("Cannot be empty");
+        }
         else {
             SharedPreferences.Editor shared_prefs = sharedPreferences.edit();
-            shared_prefs.putString("NAME", name);
-            shared_prefs.putString("DATE", date.format(new Date()));
-            shared_prefs.putString("TIME", time.format(new Date()));
+            shared_prefs.putString("NOTE", note);
+            shared_prefs.putString("SUBJECT", subject);
+            shared_prefs.putString("DATE", date.format(today));
+            shared_prefs.putString("TIME", time.format(today));
             shared_prefs.apply();
-            startActivity(new Intent(MainActivity.this, SecondaryActivity.class));
+            Snackbar.make(mainLayout, "Your note was saved", Snackbar.LENGTH_LONG)
+                    .setAction("Show", snackView -> showFullNote(view)).show();
         }
     }
 
-    public void changeActivity(View view) {
+    public void showFullNote(View view) {
         startActivity(new Intent(MainActivity.this, SecondaryActivity.class));
     }
 
-    public void genToast(View view) {
-        Toast.makeText(this, (new Date()).toString(), Toast.LENGTH_LONG).show();
-    }
-
-    public void showSnackBar(View view) {
-        final Snackbar snackbar = Snackbar.make(mainLayout, "This is a snack bar", Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction("Dismiss", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-            }
-        }).show();
+    public void showDateAndTime(View view) {
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+                DateFormat.LONG);
+        today = new Date();
+        snackBarGenerator.generate(dateFormat.format(today), 2);
     }
 }
 
