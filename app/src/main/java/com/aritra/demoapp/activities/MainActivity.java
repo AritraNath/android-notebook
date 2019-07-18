@@ -12,8 +12,6 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +21,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.aritra.demoapp.R;
 import com.aritra.demoapp.helper.SnackBarGenerator;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Date today;
     ConstraintLayout mainLayout;
     SnackBarGenerator snackBarGenerator;
-    EditText etSubject, etNote;
+    TextInputEditText etSubject, etNote;
     TextInputLayout subLayout, noteLayout;
 
     @Override
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (noteLayout.getError()!= null) {
+                if (noteLayout.getError() != null) {
                     noteLayout.setError(null);
                 }
             }
@@ -118,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         if (subject.isEmpty()) {
             subLayout.setError("Cannot be empty");
         }
-        else {
+        if (!(note.isEmpty() && subject.isEmpty())) {
             SharedPreferences.Editor shared_prefs = sharedPreferences.edit();
             shared_prefs.putString("NOTE", note);
             shared_prefs.putString("SUBJECT", subject);

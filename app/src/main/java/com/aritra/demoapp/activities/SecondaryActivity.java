@@ -8,29 +8,29 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
 
 import com.aritra.demoapp.R;
 import com.aritra.demoapp.helper.SnackBarGenerator;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 public class SecondaryActivity extends AppCompatActivity {
 
     CoordinatorLayout secondaryLayout;
+    NestedScrollView scrollView;
     SnackBarGenerator snackBarGenerator;
+    ExtendedFloatingActionButton fabEditNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class SecondaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_secondary);
 
         secondaryLayout = findViewById(R.id.secondaryLayout);
+        scrollView = findViewById(R.id.scrollView);
         snackBarGenerator = new SnackBarGenerator(secondaryLayout);
         Toolbar toolbar = findViewById(R.id.toolbar_secondary);
         setSupportActionBar(toolbar);
@@ -53,24 +54,13 @@ public class SecondaryActivity extends AppCompatActivity {
             getSupportActionBar().setSubtitle(getString(R.string.saved_on_subtitle, date, time));
         }
         TextView noteText = findViewById(R.id.tvTextFromMainActivity);
-        TextView dateFooter = findViewById(R.id.dateFooter);
-
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
-        DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
-        try {
-            Date date1 = dateFormat.parse(date);
-            Date time1 = timeFormat.parse(time);
-
-            SimpleDateFormat longDateFormat = new SimpleDateFormat("EEEE, dd MMMM YYYY", Locale.UK);
-            assert date1 != null;
-            String longDate = longDateFormat.format(date1);
-            SimpleDateFormat longTimeFormat = new SimpleDateFormat("hh:mm a", Locale.UK);
-            assert time1 != null;
-            String longTime = longTimeFormat.format(time1);
-            dateFooter.setText(getString(R.string.date_footer, longDate, longTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        fabEditNote = findViewById(R.id.fabEditNote);
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY < oldScrollY)
+                fabEditNote.extend();
+            if (scrollY > oldScrollY)
+                fabEditNote.shrink();
+        });
         noteText.setText(note);
     }
 
@@ -85,5 +75,10 @@ public class SecondaryActivity extends AppCompatActivity {
         if (item.getTitle() != null)
             snackBarGenerator.generate(item.getTitle() + " was clicked", 2);
         return super.onOptionsItemSelected(item);
+    }
+
+    public void editNote(View view) {
+        Snackbar.make(secondaryLayout, "You selected an option to edit this note",
+                BaseTransientBottomBar.LENGTH_SHORT).show();
     }
 }

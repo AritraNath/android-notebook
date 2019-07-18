@@ -7,4 +7,5 @@
     <color name="colorPrimary">#ffd600</color>
     <color name="colorPrimaryDark">#c7a500</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="materialBlue">#1A73E8</color>
 </resources>
